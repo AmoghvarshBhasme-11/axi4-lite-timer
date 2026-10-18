@@ -1,12 +1,10 @@
-# Simulation results
+# Results
 
-This folder holds Vivado behavioral simulation artifacts.
+Vivado behavioral simulation waveforms.
 
-## screenshots/
+| File | What it shows |
+|------|----------------|
+| `wave_write_channel.png` | ACLK, ARESETN, AWADDR/AWVALID/AWREADY, WDATA/WVALID/WREADY, BRESP/BVALID/BREADY |
+| `wave_read_channel.png` | ARADDR/ARVALID/ARREADY, RDATA/RRESP/RVALID/RREADY, testbench `resp` and `errors` |
 
-| File | Description |
-|------|-------------|
-| `wave_write_channel.png` | ACLK, AW/W/B handshakes, BRESP (OKAY/SLVERR/DECERR) |
-| `wave_read_channel.png` | AR/R handshakes, RDATA, testbench `resp` / `errors` |
-
-Simulation completed successfully (`$finish` ~635 ns) with all self-checking tests passed.
+All self-checking tests passed. Simulation `$finish` at ~635 ns.

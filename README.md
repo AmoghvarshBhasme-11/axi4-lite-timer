@@ -33,13 +33,11 @@ Demonstrates how a CPU talks to a peripheral over **AXI4-Lite** — not only sta
 ```text
 axi4-lite-timer/
 ├── README.md
-├── rtl/
-│   └── axi_timer.v          # AXI4-Lite timer slave
-├── tb/
-│   └── tb_axi_timer.v       # Self-checking AXI master testbench
-└── results/
-    ├── screenshots/         # Vivado waveform captures
-    └── simulation_log.txt   # Optional console log
+├── results/
+│   ├── wave_write_channel.png   # AW/W/B handshakes + BRESP
+│   └── wave_read_channel.png    # AR/R handshakes + RDATA
+├── rtl/          # (add axi_timer.v)
+└── tb/           # (add tb_axi_timer.v)
 ```
 
 ## How to run
@@ -61,22 +59,22 @@ axi4-lite-timer/
 
 ## Simulation results
 
-Waveforms from a full self-checking run (`$finish` at ~635 ns):
+Full self-checking run finished at **635 ns** (`$finish`).
 
 ### Write channel (AW / W / B)
 
-![Write channel waveform](results/screenshots/wave_write_channel.png)
+![Write channel waveform](results/wave_write_channel.png)
 
-Shows address/data phases, VALID/READY handshakes, and BRESP values:
+Address/data phases, VALID/READY, and BRESP:
 - `0` = OKAY
 - `2` = SLVERR (write to COUNT)
 - `3` = DECERR (addr `0x20`)
 
-### Read channel (AR / R) and testbench status
+### Read channel (AR / R)
 
-![Read channel waveform](results/screenshots/wave_read_channel.png)
+![Read channel waveform](results/wave_read_channel.png)
 
-Shows AR handshake, RDATA (e.g. LOAD=`5`, COUNT increasing), RRESP, and `errors=0`.
+AR handshake, RDATA (LOAD=`5`, COUNT increasing), and `errors = 0`.
 
 ## What I learned
 

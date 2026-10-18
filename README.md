@@ -33,19 +33,21 @@ Demonstrates how a CPU talks to a peripheral over **AXI4-Lite** — not only sta
 ```text
 axi4-lite-timer/
 ├── README.md
-├── results/
-│   ├── wave_write_channel.png   # AW/W/B handshakes + BRESP
-│   └── wave_read_channel.png    # AR/R handshakes + RDATA
-├── rtl/          # (add axi_timer.v)
-└── tb/           # (add tb_axi_timer.v)
+├── src/
+│   ├── axilitetimer.v   # AXI4-Lite timer slave (module: axi_timer)
+│   └── tbaxi.v          # Self-checking testbench (module: tb_axi_timer)
+└── results/
+    ├── wave_write_channel.png
+    └── wave_read_channel.png
 ```
 
 ## How to run
 
-1. Open the project in Vivado
-2. Set simulation top to `tb_axi_timer`
-3. **Run Behavioral Simulation**
-4. Confirm the Tcl console shows `ALL TESTS PASSED`
+1. Create a Vivado RTL project and add `src/axilitetimer.v`
+2. Add `src/tbaxi.v` as a simulation source
+3. Set simulation top to `tb_axi_timer`
+4. **Run Behavioral Simulation**
+5. Confirm the Tcl console shows `ALL TESTS PASSED`
 
 ## Test coverage
 
@@ -59,22 +61,19 @@ axi4-lite-timer/
 
 ## Simulation results
 
-Full self-checking run finished at **635 ns** (`$finish`).
+Full self-checking run finished at **~635 ns** (`$finish`).
 
 ### Write channel (AW / W / B)
 
 ![Write channel waveform](results/wave_write_channel.png)
 
-Address/data phases, VALID/READY, and BRESP:
-- `0` = OKAY
-- `2` = SLVERR (write to COUNT)
-- `3` = DECERR (addr `0x20`)
+BRESP values: `0` = OKAY, `2` = SLVERR, `3` = DECERR.
 
 ### Read channel (AR / R)
 
 ![Read channel waveform](results/wave_read_channel.png)
 
-AR handshake, RDATA (LOAD=`5`, COUNT increasing), and `errors = 0`.
+RDATA shows LOAD=`5`, COUNT increasing, and `errors = 0`.
 
 ## What I learned
 
